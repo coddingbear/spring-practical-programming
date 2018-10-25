@@ -1,19 +1,27 @@
 package devfun.bookstore.common.config;
 
+import java.security.Provider.Service;
+
 import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
+@EnableTransactionManagement // 애너테이션을 사용한 트랙잭션 관리
 @MapperScan("devfun.bookstore.common.mapper")
 @Configuration
-public class AppConfig {
+@ComponentScan(basePackages = {"devfun.bookstore.common.service"}) //, useDefaultFilters = false, includeFilters = {@Filter(Service.class)})
+public class AppConfig implements TransactionManagementConfigurer {
 	// DataSource 빈 설정
 	@Bean
 	public DataSource dataSource() {
@@ -36,4 +44,11 @@ public class AppConfig {
 		sessionFactory.setDataSource(dataSource());
 		return sessionFactory.getObject();
 	}
+
+	@Override
+	public PlatformTransactionManager annotationDrivenTransactionManager() {
+		return transactionManager(); // reference the existing @Bean method above
+	}
+	
+
 }
