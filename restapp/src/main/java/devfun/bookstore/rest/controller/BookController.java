@@ -1,7 +1,6 @@
 package devfun.bookstore.rest.controller;
 
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
 import devfun.bookstore.common.domain.Book;
+import devfun.bookstore.common.domain.BookList;
 import devfun.bookstore.common.service.BookService;
 
+// 프리젠테이션 계층 구현  - XML 표현
 @Controller
 @RequestMapping("/books")
 public class BookController {
@@ -27,10 +27,10 @@ public class BookController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
-	public List<Book> getBooks() {
+	public BookList getBooks() {
 		logger.info("getBooks ........................");
 		List<Book> books = bookService.getBooks();
-		return books;
+		return new BookList(books);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)

@@ -43,6 +43,24 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<!-- 스프링에서 데이터베이스 처리 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+		<!-- 스프링에서 트랜잭션 처리 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+		<!-- Spring OXM -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
 
 		<!-- Other Web dependencies -->
 		<dependency>
@@ -88,11 +106,11 @@
 		</dependency>
 
 		<!-- Hibernate -->
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernate.version}</version>
-		</dependency> -->
+		</dependency>
 		<!-- Lombok -->
 		<dependency>
 		    <groupId>org.projectlombok</groupId>
@@ -120,18 +138,6 @@
 		    <version>2.4.0</version>
 		</dependency>
 		
-		<!-- 스프링에서 데이터베이스 처리 -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
-			<version>${spring-framework.version}</version>
-		</dependency>
-		<!-- 스프링에서 트랜잭션 처리 -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-tx</artifactId>
-			<version>${spring-framework.version}</version>
-		</dependency>
 		<!-- Jackson -->
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
