@@ -3,9 +3,9 @@ package devfun.bookstore.rest.config;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.xml.bind.Marshaller;
 
+import org.hibernate.annotations.Filter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,9 +14,12 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
+import org.springframework.web.accept.ContentNegotiationManagerFactoryBean;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,7 +28,8 @@ import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages= {"devfun.bookstore.rest.controller"}) //,	useDefaultFilters=false, includeFilters= {@Filter(Controller.class)})
+@ComponentScan(basePackages= {"devfun.bookstore.rest.controller"}) 
+//,	useDefaultFilters=false, includeFilters= {@Filter(Controller.class), @Filter(ControllerAdvice.class)})
 public class RestAppConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -85,6 +89,26 @@ public class RestAppConfig extends WebMvcConfigurerAdapter {
 		return converter;
 	}
 	
+	/*
+	@Override
+	public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
+		exceptionResolvers.add(exceptionHandlerExceptionResolver());
+	}
 	
+	@Bean
+	public ExceptionHandlerExceptionResolver exceptionHandlerExceptionResolver() {
+		ExceptionHandlerExceptionResolver resolver = new ExceptionHandlerExceptionResolver();
+		List<HttpMessageConverter<?>> converters = resolver.getMessageConverters();
+		converters.add(mappingJackson2HttpMessageConverter());
+		converters.add(marshallingHttpMessageConverter());
+		resolver.setMessageConverters(converters);
 		
+		ContentNegotiationManagerFactoryBean contentNegotiationManager = new ContentNegotiationManagerFactoryBean();
+		contentNegotiationManager.addMediaType("json", MediaType.APPLICATION_JSON);
+		contentNegotiationManager.addMediaType("xml", MediaType.APPLICATION_XML);
+		contentNegotiationManager.afterPropertiesSet();
+		resolver.setContentNegotiationManager(contentNegotiationManager.getObject());
+		return resolver;
+	}
+		*/
 }
